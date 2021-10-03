@@ -47,6 +47,7 @@
 #define ALLOC(a)		malloc(a)
 #define FREE(a, b)		free(a)
 #define OKMAGIC(a)		((a) == NMAGIC)
+#define DEALLOC(a, b)		free(a)
 
 #else /* ! true, false */
 
