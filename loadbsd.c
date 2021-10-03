@@ -890,6 +890,7 @@ HISTORY\n\
 static void
 _Vdomessage(int doerrno, const char *fmt, va_list args)
 {
+    int sys_nerr = 0; //FIXME
 	fprintf(stderr, "%s: ", program_name);
 	if (fmt) {
 		vfprintf(stderr, fmt, args);
