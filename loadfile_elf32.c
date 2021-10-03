@@ -33,6 +33,9 @@
 typedef unsigned int paddr_t;
 #define sa_htobe32(f) (f)
 #define be32toh(f) (f)
+
+#include <machine/loadfile_machdep.h>
+
 /* If not included by exec_elf64.c, ELFSIZE won't be defined. */
 #ifndef ELFSIZE
 #define	ELFSIZE	32
