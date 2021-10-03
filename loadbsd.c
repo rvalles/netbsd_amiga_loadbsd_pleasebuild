@@ -30,7 +30,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdarg.h>
-#include <err.h>
+//#include <err.h>
 
 #include <exec/memory.h>
 #include <exec/execbase.h>

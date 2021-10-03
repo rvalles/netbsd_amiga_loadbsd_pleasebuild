@@ -77,7 +77,7 @@ typedef unsigned int paddr_t;
 #include <stdlib.h>
 #include <unistd.h>
 #include <fcntl.h>
-#include <err.h>
+//#include <err.h>
 #endif
 
 #include <sys/param.h>

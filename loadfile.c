@@ -74,7 +74,7 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <fcntl.h>
-#include <err.h>
+//#include <err.h>
 #endif
 typedef unsigned int paddr_t;
 #define sa_htobe32(f) (f)
