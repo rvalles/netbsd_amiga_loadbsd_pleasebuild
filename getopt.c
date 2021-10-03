@@ -29,6 +29,8 @@
  * SUCH DAMAGE.
  */
 
+#define __UNCONST(f) (f)
+
 #include <sys/cdefs.h>
 __RCSID("$NetBSD: getopt.c,v 1.28.12.1 2014/08/20 00:02:16 tls Exp $");
 

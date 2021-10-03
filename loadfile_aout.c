@@ -30,6 +30,9 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
+typedef unsigned int paddr_t;
+#define sa_htobe32(f) (f)
+#define be32toh(f) (f)
 /*
  * Copyright (c) 1992, 1993
  *	The Regents of the University of California.  All rights reserved.

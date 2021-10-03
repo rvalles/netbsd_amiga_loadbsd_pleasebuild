@@ -76,6 +76,9 @@
 #include <fcntl.h>
 #include <err.h>
 #endif
+typedef unsigned int paddr_t;
+#define sa_htobe32(f) (f)
+#define be32toh(f) (f)
 
 #include <sys/param.h>
 #include <sys/exec.h>
