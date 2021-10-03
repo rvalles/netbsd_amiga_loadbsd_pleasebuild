@@ -33,6 +33,7 @@
 typedef unsigned int paddr_t;
 #define sa_htobe32(f) (f)
 #define be32toh(f) (f)
+
 /*
  * Copyright (c) 1992, 1993
  *	The Regents of the University of California.  All rights reserved.
@@ -67,7 +68,7 @@ typedef unsigned int paddr_t;
  *	@(#)boot.c	8.1 (Berkeley) 6/10/93
  */
 
-#ifdef _STANDALONE
+#ifdef _STANDALONEFIXME
 #include <lib/libsa/stand.h>
 #include <lib/libkern/libkern.h>
 #else

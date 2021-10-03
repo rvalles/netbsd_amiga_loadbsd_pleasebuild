@@ -41,7 +41,7 @@ typedef unsigned int paddr_t;
 #define	ELFSIZE	32
 #endif
 
-#ifdef _STANDALONE
+#ifdef _STANDALONEFIXME
 #include <lib/libsa/stand.h>
 #include <lib/libkern/libkern.h>
 #else

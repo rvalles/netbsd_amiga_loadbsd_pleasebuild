@@ -64,7 +64,7 @@
  *	@(#)boot.c	8.1 (Berkeley) 6/10/93
  */
 
-#ifdef _STANDALONE
+#ifdef _STANDALONEFIXME
 #include <lib/libsa/stand.h>
 #include <lib/libkern/libkern.h>
 #else
@@ -79,9 +79,8 @@
 typedef unsigned int paddr_t;
 #define sa_htobe32(f) (f)
 #define be32toh(f) (f)
-
-#include <sys/param.h>
-#include <sys/exec.h>
+//#include <sys/param.h>
+//#include <sys/exec.h>
 
 #include "loadfile.h"
 
