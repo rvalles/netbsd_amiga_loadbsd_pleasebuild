@@ -30,7 +30,6 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdarg.h>
-//#include <err.h>
 
 #include <exec/memory.h>
 #include <exec/execbase.h>
@@ -101,8 +100,11 @@
  *		Fixed printf() statements.
  *		Ansified.
  *	3.0	01/16/03 - ELF support through loadfile() interface.
+ *	3.1	07/10/11 - Added a serial console flag
+ *		11/18/15 - Added detection of A600.
+ *		Fix handling of multiple -n options.
  */
-static const char _version[] = "$VER: LoadBSD 3.0 (16.1.2003)";
+static const char _version[] = "$VER: LoadBSD 3.1 (18.11.2015)";
 
 /*
  * Kernel startup interface version
@@ -130,6 +132,7 @@ struct boot_memlist {
 struct boot_memlist memlist;
 struct boot_memlist *kmemlist;
 
+int getopt(int, char * const [], const char *);
 void get_mem_config (void **, u_long *, u_long *);
 void get_cpuid (void);
 void get_eclock (void);
@@ -159,6 +162,9 @@ long amiga_flags;
 char *program_name;
 u_char *kp;
 u_long kpsz;
+
+static void err(int, const char *fmt, ...);
+
 
 void
 exit_func(void)
@@ -246,8 +252,10 @@ main(int argc, char **argv)
 			break;
 		case 'n':
 			i = atoi(optarg);
-			if (i >= 0 && i <= 3)
+			if (i >= 0 && i <= 3) {
+				amiga_flags &= ~(3 << 1);
 				amiga_flags |= i << 1;
+			}
 			else
 				err(20, "-n option must be 0, 1, 2, or 3");
 			break;
@@ -621,8 +629,11 @@ get_cpuid(void)
 	else if (FindResident("A3000 Bonus") || FindResident("A3000 bonus"))
 		cpuid |= 3000 << 16;
 	else if (OpenResource("card.resource")) {
-		/* Test for AGA? */
-		cpuid |= 1200 << 16;
+		UBYTE alicerev = *((UBYTE *)0xdff004) & 0x6f;
+		if (alicerev == 0x22 || alicerev == 0x23)
+			cpuid |= 1200 << 16;	/* AGA + PCMCIA = A1200 */
+		else
+			cpuid |= 600 << 16;	/* noAGA + PCMCIA = A600 */
 	} else if (OpenResource("draco.resource")) {
 		cpuid |= (32000 | DRACOREVISION) << 16;
 	}
@@ -890,13 +901,12 @@ HISTORY\n\
 static void
 _Vdomessage(int doerrno, const char *fmt, va_list args)
 {
-    int sys_nerr = 0; //FIXME
 	fprintf(stderr, "%s: ", program_name);
 	if (fmt) {
 		vfprintf(stderr, fmt, args);
 		fprintf(stderr, ": ");
 	}
-	if (doerrno && errno < sys_nerr) {
+	if (doerrno) {
 		fprintf(stderr, "%s", strerror(errno));
 	}
 	fprintf(stderr, "\n");
