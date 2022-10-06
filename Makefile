@@ -5,7 +5,7 @@ TARGET	= loadbsd
 sdkprefix = /opt/amiga/bin/m68k-amigaos-
 CC	= $(sdkprefix)gcc
 #CC	= gcc
-CFLAGS	= -D_STANDALONE -DNO_MID_CHECK -I./include -O -fomit-frame-pointer -msmall-code -m68020
+CFLAGS	= -D_STANDALONE -DNO_MID_CHECK -I./include -Os -fomit-frame-pointer -msmall-code -m68020
 LDFLAGS	= -noixemul
 LDLIBS	=
 
