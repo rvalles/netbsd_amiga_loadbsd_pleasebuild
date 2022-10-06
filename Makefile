@@ -6,10 +6,10 @@ sdkprefix = /opt/amiga/bin/m68k-amigaos-
 CC	= $(sdkprefix)gcc
 #CC	= gcc
 CFLAGS	= -D_STANDALONE -DNO_MID_CHECK -I./include -Os -fomit-frame-pointer -msmall-code -m68020
-LDFLAGS	= -noixemul
+LDFLAGS	= -mcrt=nix20
 LDLIBS	=
 
-OBJS	= loadbsd.o loadfile.o loadfile_aout.o loadfile_elf32.o getopt.o
+OBJS	= loadbsd.o loadfile.o loadfile_aout.o loadfile_elf32.o #getopt.o
 
 $(TARGET): $(OBJS)
 	$(CC) $(LDFLAGS) -o $@ $(OBJS) $(LDLIBS)
